@@ -1,0 +1,8 @@
+services:
+- type: worker
+name: tgram-availbot env: python plan: starter
+buildCommand: pip install -r
+requirements.txt
+startCommand: python bot.py envvars:
+- key: PYTHON_VERSION
+value: 3.11.8
