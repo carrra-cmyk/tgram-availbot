@@ -129,11 +129,15 @@ async def profile_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     context.user_data["profile_data"]["name_subject"] = update.message.text
     
     keyboard = [
-        [InlineKeyboardButton("In-Person", callback_data="service_In-Person"),
-         InlineKeyboardButton("Facetime Shows", callback_data="service_Facetime Shows")],
-        [InlineKeyboardButton("Custom Content", callback_data="service_Custom Content"),
-         InlineKeyboardButton("Other", callback_data="service_Other")],
-        [InlineKeyboardButton("✅ Done Selecting Services", callback_data="service_done")]
+        [
+            InlineKeyboardButton("In-Person", callback_data="service_In-Person"),
+            InlineKeyboardButton("Facetime Shows", callback_data="service_Facetime Shows")
+        ],
+        [
+            InlineKeyboardButton("Custom Content", callback_data="service_Custom Content"),
+            InlineKeyboardButton("Other", callback_data="service_Other")
+        ],
+        [InlineKeyboardButton("Done Selecting Services", callback_data="service_done")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
