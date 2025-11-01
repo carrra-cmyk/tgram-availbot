@@ -124,7 +124,9 @@ async def create_profile_start(update: Update, context: ContextTypes.DEFAULT_TYP
     await update.effective_chat.send_message("Step 1/15: What name or catchy line do you want to display? (This will be the bold title of your listing)")
     return STATE_NAME
 
-async def profile_name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def profile_name(update:
+                       Update, context:
+                       ContextTypes.DEFAULT_TYPE) -> int:
     """Collects the model's display name/headline."""
     context.user_data["profile_data"]["name_subject"] = update.message.text
     
