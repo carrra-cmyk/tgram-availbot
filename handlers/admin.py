@@ -509,7 +509,7 @@ async def profile_save(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
 
 async def profile_cancel (update:
 Update, context:
-ContextTypes.DEFAULT_TYPE) →> int: creaturn wizard he profile if update.callback_query:
+ContextTypes.DEFAULT_TYPE) -> int: creaturn wizard he profile if update.callback_query:
 query =
 update.callback_query
 await query. answer ()
