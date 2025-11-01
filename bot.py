@@ -23,7 +23,9 @@ from utils.constants import (
     STATE_FACETIME, STATE_CUSTOM, STATE_OTHER, STATE_ABOUT,
     STATE_CONTACT_METHOD, STATE_CONTACT_INFO, STATE_SOCIAL_LINKS,
     STATE_RATES, STATE_DISCLAIMER, STATE_ALLOW_COMMENTS, STATE_PHOTOS,
-    STATE_VIDEOS, STATE_PREVIEW
+    STATE_VIDEOS, STATE_PREVIEW,
+    STATE_INPERSON_LOCATION, STATE_FACETIME_PAYMENT, STATE_CUSTOM_DELIVERY,
+
 )
 
 # Enable logging
@@ -48,17 +50,31 @@ def main() -> None:
             STATE_SERVICES: [CallbackQueryHandler(profile_services_callback, pattern="^service_")],
             STATE_INPERSON: [
                 CallbackQueryHandler(profile_inperson_type, pattern="^inperson_"),
-                MessageHandler(filters.TEXT & ~filters.COMMAND, profile_inperson_location),
+               
             ],
             STATE_FACETIME: [
                 MessageHandler(filters.TEXT & ~filters.COMMAND, profile_facetime_platforms),
-                MessageHandler(filters.TEXT & ~filters.COMMAND, profile_facetime_payment),
+
+                        STATE_CUSTOM: [
+            MessageHandler(filters.TEXT & ~filters.COMMAND, profile_custom_payment),
+        ],
             ],
-            STATE_CUSTOM: [
-                MessageHandler(filters.TEXT & ~filters.COMMAND, profile_custom_payment),
-                MessageHandler(filters.TEXT & ~filters.COMMAND, profile_custom_delivery),
+        
+                        
+             
+                
             ],
             STATE_OTHER: [MessageHandler(filters.TEXT & ~filters.COMMAND, profile_other_service)],
+                    STATE_INPERSON_LOCATION: [
+            MessageHandler(filters.TEXT & ~filters.COMMAND, profile_inperson_location),
+        ],
+        STATE_FACETIME_PAYMENT: [
+            MessageHandler(filters.TEXT & ~filters.COMMAND, profile_facetime_payment),
+        ],
+        STATE_CUSTOM_DELIVERY: [
+            MessageHandler(filters.TEXT & ~filters.COMMAND, profile_custom_delivery),
+        ],
+
             STATE_ABOUT: [MessageHandler(filters.TEXT & ~filters.COMMAND, profile_about)],
             STATE_CONTACT_METHOD: [CallbackQueryHandler(profile_contact_method, pattern="^contact_")],
             STATE_CONTACT_INFO: [MessageHandler(filters.TEXT, profile_contact_info)],
