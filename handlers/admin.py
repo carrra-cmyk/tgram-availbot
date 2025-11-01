@@ -507,18 +507,19 @@ async def profile_save(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
         
     return ConversationHandler.END
 
-async def profile_cancel (update:
-Update, context:
-ContextTypes.DEFAULT_TYPE) -> int: creaturn wizard he profile if update.callback_query:
-query =
-update.callback_query
-await query. answer ()
-await
-query. edit_message_text("Profile setup cancelled. Your profile remains unchanged.")
-else:
-await
-update message. reply_text ("Profile setup cancelled. Your profile remains unchanged. ")
-return ConversationHandler.END
+async def profile_cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    """Cancels the profile creation wizard."""
+    if update.callback_query:
+        query = update.callback_query
+        await query.answer()
+        await query.edit_message_text(
+            "Profile setup cancelled. Your profile remains unchanged."
+        )
+    else:
+        await update.message.reply_text(
+            "Profile setup cancelled. Your profile remains unchanged."
+        )
+    return ConversationHandler.END
 
 async def profile_fallback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Fallback for unexpected messages during the wizard."""
