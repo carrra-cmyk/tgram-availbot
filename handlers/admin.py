@@ -5,13 +5,16 @@ from typing import Dict, Any, List
 import json
 import db
 from utils.constants import (
+ 
     APPROVED_ADMIN_IDS, GROUP_CHAT_ID, LISTING_DURATIONS, COOLDOWN_MINUTES,
     STATE_NAME, STATE_SERVICES, STATE_INPERSON, STATE_FACETIME, STATE_CUSTOM,
     STATE_OTHER, STATE_ABOUT, STATE_CONTACT_METHOD, STATE_CONTACT_INFO,
     STATE_SOCIAL_LINKS, STATE_RATES, STATE_DISCLAIMER, STATE_ALLOW_COMMENTS,
-    STATE_PHOTOS, STATE_VIDEOS, STATE_PREVIEW, STATE_END, LIST_TYPE_PINNED,
-    LIST_TYPE_CHAT
+    STATE_PHOTOS, STATE_VIDEOS, STATE_PREVIEW, STATE_END,
+    STATE_INPERSON_LOCATION, STATE_FACETIME_PAYMENT, STATE_CUSTOM_DELIVERY,
+    LIST_TYPE_PINNED, LIST_TYPE_CHAT
 )
+
 from utils.formatting import generate_listing_message
 
 # --- Helper Functions ---
@@ -222,7 +225,7 @@ async def profile_inperson_type(update: Update, context: ContextTypes.DEFAULT_TY
     context.user_data["profile_data"]["inperson_incall_outcall"] = query.data.replace("inperson_", "")
     
     await query.edit_message_text("Step 3/15: Please provide a short Location description (e.g., neighborhood or city area).")
-    return STATE_INPERSON + 0.1 # Use a sub-state for the text input
+  return STATE_INPERSON_LOCATION
 
 async def profile_inperson_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Collects In-Person location."""
@@ -246,7 +249,7 @@ async def profile_facetime_platforms(update: Update, context: ContextTypes.DEFAU
     """Collects Facetime platforms."""
     context.user_data["profile_data"]["facetime_platforms"] = update.message.text
     await update.message.reply_text("Step 4/15: What is your preferred payment method for these online shows? (e.g., CashApp, PayPal)")
-    return STATE_FACETIME + 0.1
+    return STATE_FACETIME_PAYMENT
 
 async def profile_facetime_payment(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Collects Facetime payment method."""
@@ -267,7 +270,7 @@ async def profile_custom_payment(update: Update, context: ContextTypes.DEFAULT_T
     """Collects Custom Content payment method."""
     context.user_data["profile_data"]["custom_payment"] = update.message.text
     await update.message.reply_text("Step 5/15: How do you deliver the content? (e.g., Email, Google Drive link)")
-    return STATE_CUSTOM + 0.1
+    return STATE_CUSTOM_DELIVERY
 
 async def profile_custom_delivery(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Collects Custom Content delivery method."""
